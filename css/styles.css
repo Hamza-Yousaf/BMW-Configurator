@@ -61,3 +61,15 @@ button.btn-selected.tooltip .tooltiptext::after {
     visibility: visible;
     opacity: 1;
 }
+
+#top-bar {
+    transition: transform 0.3s ease-in-out;
+}
+
+.visible-bar {
+    transform: translateY(0);
+}
+
+.hidden-bar {
+    transform: translateY(-100%);
+}
