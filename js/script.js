@@ -4,10 +4,11 @@ const interiorColorSection = document.querySelector('#interior-buttons')
 const wheelSection = document.querySelector('#wheel-buttons')
 const exteriorImage = document.querySelector('#exterior-image')
 const interiorImage = document.querySelector('#interior-image')
+const totalPrice = document.querySelector('#total-price')
 
 let color = 'white';
 let wheel = '951';
-
+let intColor;
 
 // top bar movement
 const barScroll = () => {
@@ -46,7 +47,6 @@ const wheelImages = {
 const optionSelector = (event) => {
     let button;
     let key;
-    let intColor
 
     if(event.target.tagName === 'IMG') {
         button = event.target.closest('button');
@@ -78,33 +78,48 @@ const optionSelector = (event) => {
     }
 }
 
+const calcTotalPrice = () => {
+    let totalPriceNum = 75000;
+    if(color != 'white') {
+        totalPriceNum += 975;
+    }
 
-// Wheel selection
-// const wheelButtonClick = (event) => {
-//     let button
+    if(intColor == 'red-int') {
+        totalPriceNum += 1150;
+    }
 
-//     if(event.target.tagName === 'IMG') {
-//         button = event.target.closest('button');
-//     } else if(event.target.tagName === 'BUTTON') {
-//         button = event.target;
-//     }
+    if(wheel == '952') {
+        totalPriceNum += 750;
+    }
 
-//     const buttons = event.currentTarget.querySelectorAll('button');
-//     buttons.forEach((btn) => btn.classList.remove('btn-selected'));
-//     button.classList.add('btn-selected');
+    displayPrice(totalPriceNum)
+}
 
-//     wheel = button.querySelector('img').alt
+const displayPrice = (price) => {
+    totalPrice.innerHTML = '$' + price.toLocaleString();
+}
 
-//     let key = color + '-' + wheel
-//     exteriorImage.src = wheelImages[key]
 
-//     console.log(key)
-// }
 
 window.addEventListener('scroll', () => {
     requestAnimationFrame(barScroll);
 })
 
-exteriorColorSection.addEventListener('click', optionSelector)
-interiorColorSection.addEventListener('click', optionSelector)
-wheelSection.addEventListener('click', optionSelector)
+window.addEventListener('DOMContentLoaded', () => {
+    calcTotalPrice();
+});
+
+exteriorColorSection.addEventListener('click', (event) => {
+    optionSelector(event)
+    calcTotalPrice()
+})
+
+interiorColorSection.addEventListener('click', (event) => {
+    optionSelector(event)
+    calcTotalPrice()
+})
+
+wheelSection.addEventListener('click', (event) => {
+    optionSelector(event)
+    calcTotalPrice()
+})
