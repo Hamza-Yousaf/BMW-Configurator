@@ -5,10 +5,14 @@ const wheelSection = document.querySelector('#wheel-buttons')
 const exteriorImage = document.querySelector('#exterior-image')
 const interiorImage = document.querySelector('#interior-image')
 const totalPrice = document.querySelector('#total-price')
+const carbonMirrorCheckBox = document.querySelector('#carbon-mirror-checkbox')
+const carbonSpoilerCheckBox = document.querySelector('#carbon-spoiler-checkbox')
+const carbonRoofCheckBox = document.querySelector('#carbon-roof-checkbox')
 
 let color = 'white';
 let wheel = '951';
 let intColor;
+let totalPriceNum = 75000;
 
 // top bar movement
 const barScroll = () => {
@@ -78,8 +82,25 @@ const optionSelector = (event) => {
     }
 }
 
+const carbonSelector = (event) => {
+    let checkBox
+
+    if(event.target.tagName == 'INPUT') {
+        checkBox = event.target
+        
+        if(checkBox.checked) {
+            // console.log(checkBox)
+            totalPriceNum += 1300
+        } else {
+            totalPriceNum -= 1300
+        }
+    }
+
+    displayPrice(totalPriceNum)
+}
+
+
 const calcTotalPrice = () => {
-    let totalPriceNum = 75000;
     if(color != 'white') {
         totalPriceNum += 975;
     }
@@ -98,7 +119,6 @@ const calcTotalPrice = () => {
 const displayPrice = (price) => {
     totalPrice.innerHTML = '$' + price.toLocaleString();
 }
-
 
 
 window.addEventListener('scroll', () => {
@@ -123,3 +143,7 @@ wheelSection.addEventListener('click', (event) => {
     optionSelector(event)
     calcTotalPrice()
 })
+
+carbonMirrorCheckBox.addEventListener('click', carbonSelector)
+carbonSpoilerCheckBox.addEventListener('click', carbonSelector)
+carbonRoofCheckBox.addEventListener('click', carbonSelector)
