@@ -8,11 +8,15 @@ const totalPrice = document.querySelector('#total-price')
 const carbonMirrorCheckBox = document.querySelector('#carbon-mirror-checkbox')
 const carbonSpoilerCheckBox = document.querySelector('#carbon-spoiler-checkbox')
 const carbonRoofCheckBox = document.querySelector('#carbon-roof-checkbox')
+const performancePackageButton = document.querySelector('#performance-package')
+const advancedDriverPackageButton = document.querySelector('#advanced-driver-package')
 
 let color = 'white';
 let wheel = '951';
 let intColor;
 let totalPriceNum = 75000;
+let selected1 = false
+let selected2 = false
 
 // top bar movement
 const barScroll = () => {
@@ -99,6 +103,43 @@ const carbonSelector = (event) => {
     displayPrice(totalPriceNum)
 }
 
+const packageSelector = (event) => {
+    let button
+
+    if(event.target.tagName == 'BUTTON') {
+        button = event.target
+        console.log(button)
+
+        if(button.id == 'performance-package') {
+            if(selected1 == false) {
+                selected1 = true;
+                button.classList.add('package-selected')
+                button.innerHTML = 'Performance Upgrade (+$8000) SELECTED'
+                totalPriceNum += 8000
+            } else if(selected1 == true) {
+                selected1 = false;
+                button.classList.remove('package-selected')
+                button.innerHTML = 'Performance Upgrade (+$8000)'
+                totalPriceNum -= 8000
+            }
+        } else if(button.id == 'advanced-driver-package') {
+            if(selected2 == false) {
+                selected2 = true;
+                button.classList.add('package-selected')
+                button.innerHTML = 'Advanced Driver Assistance Package (+$2000) SELECTED'
+                totalPriceNum += 2000
+            } else if(selected2 == true) {
+                selected2 = false;
+                button.classList.remove('package-selected')
+                button.innerHTML = 'Advanced Driver Assistance Package (+$2000)'
+                totalPriceNum -= 2000
+            }
+        }
+    }
+
+    displayPrice(totalPriceNum)
+}
+
 
 const calcTotalPrice = () => {
     if(color != 'white') {
@@ -147,3 +188,6 @@ wheelSection.addEventListener('click', (event) => {
 carbonMirrorCheckBox.addEventListener('click', carbonSelector)
 carbonSpoilerCheckBox.addEventListener('click', carbonSelector)
 carbonRoofCheckBox.addEventListener('click', carbonSelector)
+
+performancePackageButton.addEventListener('click', packageSelector)
+advancedDriverPackageButton.addEventListener('click', packageSelector)
