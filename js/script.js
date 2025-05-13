@@ -10,6 +10,9 @@ const carbonSpoilerCheckBox = document.querySelector('#carbon-spoiler-checkbox')
 const carbonRoofCheckBox = document.querySelector('#carbon-roof-checkbox')
 const performancePackageButton = document.querySelector('#performance-package')
 const advancedDriverPackageButton = document.querySelector('#advanced-driver-package')
+const sunshadesCheckBox = document.querySelector('#sunshades-checkbox')
+const redBrakesCheckBox = document.querySelector('#red-compound-brakes-checkbox')
+const mDrviersPackageCheckBox = document.querySelector('#m-drivers-package-checkbox')
 
 let color = 'white';
 let wheel = '951';
@@ -140,6 +143,45 @@ const packageSelector = (event) => {
     displayPrice(totalPriceNum)
 }
 
+const extraSelector = (event) => {
+    let checkBox
+    let checkBoxId
+
+    if(event.target.tagName == 'INPUT') {
+        checkBox = event.target
+        checkBoxId = checkBox.id
+
+        if(checkBox.checked){
+            switch(checkBoxId) { 
+                case 'sunshades-checkbox':
+                    totalPriceNum += 1000
+                    break
+                case 'red-compound-brakes-checkbox':
+                    totalPriceNum += 750
+                    break
+                case 'm-drivers-package-checkbox':
+                    totalPriceNum += 2500
+                    break
+            }
+        } else if (!(checkBox.checked)) {
+            switch(checkBoxId) { 
+                case 'sunshades-checkbox':
+                    totalPriceNum -= 1000
+                    break
+                case 'red-compound-brakes-checkbox':
+                    totalPriceNum -= 750
+                    break
+                case 'm-drivers-package-checkbox':
+                    totalPriceNum -= 2500
+                    break
+            }
+        }
+
+    }
+
+    displayPrice(totalPriceNum)
+}
+
 
 const calcTotalPrice = () => {
     if(color != 'white') {
@@ -191,3 +233,7 @@ carbonRoofCheckBox.addEventListener('click', carbonSelector)
 
 performancePackageButton.addEventListener('click', packageSelector)
 advancedDriverPackageButton.addEventListener('click', packageSelector)
+
+sunshadesCheckBox.addEventListener('click', extraSelector)
+redBrakesCheckBox.addEventListener('click', extraSelector)
+mDrviersPackageCheckBox.addEventListener('click', extraSelector)

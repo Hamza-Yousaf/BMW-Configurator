@@ -46,6 +46,10 @@ button.btn-selected.tooltip .tooltiptext::after {
     border-color: #555 transparent transparent transparent;
 }
 
+button.package-selected {
+    transform: scale(102%);
+}
+
 .tooltip .tooltiptext::after {
     content: "";
     position: absolute;
