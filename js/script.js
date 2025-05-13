@@ -136,7 +136,7 @@ const checkSelected = (selected, price, message, button) => {
     if(selected == false) {
         selected = true;
         button.classList.add('package-selected')
-        button.innerHTML = message + 'SELECTED'
+        button.innerHTML = message + ' SELECTED'
         totalPriceNum += price
     } else if(selected == true) {
         selected = false;
