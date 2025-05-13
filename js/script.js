@@ -20,6 +20,10 @@ let intColor;
 let totalPriceNum = 75000;
 let selected1 = false
 let selected2 = false
+let priceP = 8000
+let priceA = 2000
+let messageP = 'Performance Upgrade (+$8000)'
+let messageA = 'Advanced Driver Assistance Package (+$2000)'
 
 // top bar movement
 const barScroll = () => {
@@ -114,33 +118,30 @@ const packageSelector = (event) => {
         console.log(button)
 
         if(button.id == 'performance-package') {
-            if(selected1 == false) {
-                selected1 = true;
-                button.classList.add('package-selected')
-                button.innerHTML = 'Performance Upgrade (+$8000) SELECTED'
-                totalPriceNum += 8000
-            } else if(selected1 == true) {
-                selected1 = false;
-                button.classList.remove('package-selected')
-                button.innerHTML = 'Performance Upgrade (+$8000)'
-                totalPriceNum -= 8000
-            }
+            selected1 = checkSelected(selected1, priceP, messageP, button)
         } else if(button.id == 'advanced-driver-package') {
-            if(selected2 == false) {
-                selected2 = true;
-                button.classList.add('package-selected')
-                button.innerHTML = 'Advanced Driver Assistance Package (+$2000) SELECTED'
-                totalPriceNum += 2000
-            } else if(selected2 == true) {
-                selected2 = false;
-                button.classList.remove('package-selected')
-                button.innerHTML = 'Advanced Driver Assistance Package (+$2000)'
-                totalPriceNum -= 2000
-            }
+            selected2 = checkSelected(selected2, priceA, messageA, button)
         }
     }
 
+    console.log(selected1, selected2)
     displayPrice(totalPriceNum)
+}
+
+const checkSelected = (selected, price, message, button) => {
+    if(selected == false) {
+        selected = true;
+        button.classList.add('package-selected')
+        button.innerHTML = message + 'SELECTED'
+        totalPriceNum += price
+    } else if(selected == true) {
+        selected = false;
+        button.classList.remove('package-selected')
+        button.innerHTML = message
+        totalPriceNum -= price
+    }
+
+    return selected
 }
 
 const extraSelector = (event) => {
