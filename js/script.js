@@ -13,6 +13,7 @@ const advancedDriverPackageButton = document.querySelector('#advanced-driver-pac
 const sunshadesCheckBox = document.querySelector('#sunshades-checkbox')
 const redBrakesCheckBox = document.querySelector('#red-compound-brakes-checkbox')
 const mDrviersPackageCheckBox = document.querySelector('#m-drivers-package-checkbox')
+const estimatedMonthlyPayment = document.querySelector('#monthly-payment')
 
 let color = 'white';
 let wheel = '951';
@@ -24,6 +25,7 @@ let priceP = 8000
 let priceA = 2000
 let messageP = 'Performance Upgrade (+$8000)'
 let messageA = 'Advanced Driver Assistance Package (+$2000)'
+
 
 // top bar movement
 const barScroll = () => {
@@ -108,6 +110,7 @@ const carbonSelector = (event) => {
     }
 
     displayPrice(totalPriceNum)
+    costBreakdown(totalPriceNum)
 }
 
 const packageSelector = (event) => {
@@ -126,6 +129,7 @@ const packageSelector = (event) => {
 
     console.log(selected1, selected2)
     displayPrice(totalPriceNum)
+    costBreakdown(totalPriceNum)
 }
 
 const checkSelected = (selected, price, message, button) => {
@@ -181,6 +185,7 @@ const extraSelector = (event) => {
     }
 
     displayPrice(totalPriceNum)
+    costBreakdown(totalPriceNum)
 }
 
 
@@ -198,6 +203,22 @@ const calcTotalPrice = () => {
     }
 
     displayPrice(totalPriceNum)
+    costBreakdown(totalPriceNum)
+}
+
+const costBreakdown = () => {
+    let downPayment = 7500
+    let APR = 0.04
+    let loanAmount = totalPriceNum - downPayment
+    let monthlyInterestRate = APR / 12
+    let numberOfMonths = 60
+
+    let monthlyPayment = loanAmount * (monthlyInterestRate*(1 + monthlyInterestRate)**numberOfMonths)/(((1 + monthlyInterestRate)**numberOfMonths) - 1)
+
+    monthlyPayment = monthlyPayment.toFixed(2)
+
+    
+    estimatedMonthlyPayment.innerHTML = '$' + monthlyPayment.toLocaleString();
 }
 
 const displayPrice = (price) => {
